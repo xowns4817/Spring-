@@ -4,7 +4,12 @@ Void vs Future vs ListenableFuture vs CompletableFuture
  ### 설정 방법 
  - 1. Config 파일위에 @EnableAsync를 붙여 비동기를 사용하겠다고 명시
  - 2. 함수 위에 @Async 키워드를 붙인다. ( 해당 함수는 비동기로 동작한다. )
-
+ 
+ ### @Async 사용시 주의사항
+ - 1. @Async를 사용하려는 함수는 public으로 선언해야 한다.
+ - 2. 같은 클래스의 메서드에 @Async를 설정하여 호출할 경우 동작하지 않음.
+ - 3. 리턴 타입은 void나 Future<V> 인터페이스 형태만 가능
+ 
  ### 리턴 값
  - void, Future, ListenableFuture, CompletableFuture를 갖을 수 있다.  ( ListenableFuture, CompletableFuture는 Future를 상속한 구조이다. )
   1. void 
