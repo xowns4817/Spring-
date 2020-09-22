@@ -41,7 +41,7 @@ Void vs Future vs ListenableFuture vs CompletableFuture
      
 ### 스레드 풀 관련설정
     - 스레드풀 설정을 따로하지 않으면 기본적으로 SimpleAsyncTaskExecutor를 사용한다. 이는 각 비동기 호출마다 새로운 쓰레드를 생성한다.
-    - 스레드 풀 설정은 다음과 같이 할 수 있다. ( 테스트를 위해 setCorePoolSize를 임의로 1로 지정했다. 이는 쓰레드를 풀에 1개의 쓰레드만을 만든다는 뜻이다. 즉, 1개의 요청이 와서 쓰레드를 사용하고 있으면 다른 요청은 block된다는 뜻이다. 실제로 해당 size를 바꿔가며 해당 깃 코드를 돌려보면 알 수 있다.
+    - 스레드 풀 설정은 다음과 같이 할 수 있다. ( 보통은 해당 소스를 돌리려는 pc의 core갯수로 쓰레드 풀을 설정하지만,  테스트를 위해 setCorePoolSize를 임의로 1로 지정했다. 이는 쓰레드를 풀에 1개의 쓰레드만을 만든다는 뜻이다. 즉, 1개의 요청이 와서 쓰레드를 사용하고 있으면 다른 요청은 block된다는 뜻이다. 실제로 해당 size를 바꿔가며 해당 깃 코드를 돌려보면 알 수 있다.
  ```java
         @Bean("ktj-async")
         public Executor getAsyncExecutor() {
