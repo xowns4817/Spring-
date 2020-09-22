@@ -19,12 +19,13 @@ Void vs Future vs ListenableFuture vs CompletableFuture
             }
         }
      ```
+     
      - 위와같이 future가 끝날때 까지 무한루프를 돌려준다.
      
-   3. ListenableFuture
-     - 자바스크립트의 콜백형식이라고 보면 됨. -> 콜백지옥 발생할수 있다.
+  3. ListenableFuture
+    - 자바스크립트의 콜백형식이라고 보면 됨. -> 콜백지옥 발생할수 있다.
      
-   4. CompletableFuture
+  4. CompletableFuture
       - 자바 8에 새로 추가된 기능. 3번 콜백지옥을 해결 할 수 있다.
       - thenAccept -> return 값 없음 ( CompletableFuture<Void> ) -> 내부에 콜백함수 선언 가능
       - thenApply -> return 값 있음 ( CompletableFuture<T> )
@@ -34,7 +35,7 @@ Void vs Future vs ListenableFuture vs CompletableFuture
       - allOf 메서드에 CompletableFuture 리스트를 파라미터로 넣어주면 모든 Future가 완료 되었을때 thenApply가 실행된다.
       
       
-  ### 스레드 풀 관련설정
+### 스레드 풀 관련설정
     - 스레드풀 설정을 따로하지 않으면 기본적으로 SimpleAsyncTaskExecutor를 사용한다. 이는 각 비동기 호출마다 새로운 쓰레드를 생성한다.
     - 스레드 풀 설정은 다음과 같이 할 수 있다. ( 테스트를 위해 setCorePoolSize를 임의로 1로 지정했다. 이는 쓰레드를 풀에 1개의 쓰레드만을 만든다는 뜻이다. 즉, 1개의 요청이 와서 쓰레드를 사용하고 
     있으면 다른 요청은 block된다는 뜻이다. 실제로 해당 size를 바꿔가며 해당 깃 코드를 돌려보면 알 수 있다.
