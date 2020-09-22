@@ -11,7 +11,14 @@ Void vs Future vs ListenableFuture vs CompletableFuture
     - @Async 함수의 return 값이 없는 경우. 
   2. Future 
     - @Async 함수의 return 값을 갖는 경우. 주의할 점이 값을 return 받고 get()함수로 그 값을 얻어낼 수 있는데. get( )을 호출하는 순간 블락이된다. 즉, 동기적으로 실행됨..
-
+      ```
+       while(true) {
+            if(future.isDone()) {
+                System.out.println(future.get()); // 이런식으로 처리 안하고 바로 future.get()을 호출하면 블로킹이된다.
+                break;
+            }
+        }
+     ```
      - 위와같이 future가 끝날때 까지 무한루프를 돌려준다.
      
   3. ListenableFuture
@@ -31,7 +38,7 @@ Void vs Future vs ListenableFuture vs CompletableFuture
     - 스레드풀 설정을 따로하지 않으면 기본적으로 SimpleAsyncTaskExecutor를 사용한다. 이는 각 비동기 호출마다 새로운 쓰레드를 생성한다.
     - 스레드 풀 설정은 다음과 같이 할 수 있다. ( 테스트를 위해 setCorePoolSize를 임의로 1로 지정했다. 이는 쓰레드를 풀에 1개의 쓰레드만을 만든다는 뜻이다. 즉, 1개의 요청이 와서 쓰레  드를 사용하고 있으면 다른 요청은 block된다는 뜻이다. 실제로 해당 size를 바꿔가며 해당 깃 코드를 돌려보면 알 수 있다.
     
-      ```
+ ```
         @Bean("ktj-async")
         public Executor getAsyncExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
@@ -42,7 +49,7 @@ Void vs Future vs ListenableFuture vs CompletableFuture
         executor.initialize();
         return executor;
     } 
-    ```
+ ```
       
     - 사용법은 @Async("ktj-async") 이런식으로 빈 이름으로 주입하면 된다.
     - 만약, 쓰레드풀 설정을 여러개 해주고 싶다면 빈 이름을 다르게 여러개 만들어주면 된다.
